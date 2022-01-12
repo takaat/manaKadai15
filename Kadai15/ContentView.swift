@@ -14,7 +14,6 @@ struct Item: Identifiable {
 }
 
 struct ContentView: View {
-    @State private var checkMark = Image(systemName: "checkmark")
     @State private var isShowAddItemView = false
     @State private var items: [Item] = [.init(name: "りんご", isChecked: false),
                                         .init(name: "みかん", isChecked: true),
@@ -27,7 +26,6 @@ struct ContentView: View {
                 ItemView(item: $item)
                     .onTapGesture {
                         item.isChecked.toggle()
-//                        print("viewを押したischeckは、\(item.name)\(item.isChecked)")
                     }
             }
             .listStyle(.plain)
@@ -113,4 +111,3 @@ struct ItemView_Previews: PreviewProvider {
         ItemView(item: .constant(.init(name: "みかん", isChecked: true)))
     }
 }
-
