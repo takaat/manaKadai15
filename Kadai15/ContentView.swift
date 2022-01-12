@@ -23,22 +23,12 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List(items) { item in
-                var item = item
-                HStack {
-                    if item.isChecked {
-                        checkMark.foregroundColor(.orange)
-                    } else {
-                        checkMark.hidden()
-                    }
-
-                    Button(action: {
+            List($items) { $item in
+                ItemView(item: $item)
+                    .onTapGesture {
                         item.isChecked.toggle()
-                        print("ボタン作動：イズチェックは、\(item.isChecked)")
-                    }, label: {
-                        Text(item.name)
-                    })
-                }
+//                        print("viewを押したischeckは、\(item.name)\(item.isChecked)")
+                    }
             }
             .listStyle(.plain)
             .toolbar {
@@ -90,7 +80,7 @@ struct AddItemView: View {
 }
 
 struct ItemView: View {
-    let item: Item
+    @Binding var item: Item
     private let checkMark = Image(systemName: "checkmark")
 
     var body: some View {
@@ -120,7 +110,7 @@ struct AddItemView_Previews: PreviewProvider {
 
 struct ItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemView(item: .init(name: "みかん", isChecked: true))
+        ItemView(item: .constant(.init(name: "みかん", isChecked: true)))
     }
 }
 
